@@ -125,6 +125,11 @@ const CATEGORY_IDS = {
   "Document": "wdjgdqde"
 };
 
+const PLANRADAR_PROJECT = '338609';
+const PLANRADAR_BASE = 'https://planradar.com/api/v1';
+const FIELD_ROOM = 'tffa50f6035291031e';
+const FIELD_CATEGORY = 'tf1fb9ead060327190';
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
@@ -146,34 +151,53 @@ exports.handler = async (event) => {
 
   const roomText = sanitize(data.room);
   const categoryText = sanitize(data.category);
+  const unitId = sanitize(data.unit_id);
+  const description = sanitize(data.description);
+  const contactName = sanitize(data.contact_name);
+  const contactEmail = sanitize(data.contact_email);
+  const contactPhone = sanitize(data.contact_phone);
 
-  const payload = {
-    unit_id:        sanitize(data.unit_id),
-    room:           roomText,
-    room_id:        ROOM_IDS[roomText] || null,
-    category:       categoryText,
-    category_id:    CATEGORY_IDS[categoryText] || null,
-    priority:       sanitize(data.priority),
-    description:    sanitize(data.description),
-    contact_name:   sanitize(data.contact_name),
-    contact_email:  sanitize(data.contact_email),
-    contact_phone:  sanitize(data.contact_phone),
-    submitted_at:   new Date().toISOString(),
+  const roomId = ROOM_IDS[roomText] || null;
+  const categoryId = CATEGORY_IDS[categoryText] || null;
+
+  // Build PlanRadar ticket payload
+  const ticketPayload = {
+    ticket: {
+      title: `[${unitId}] ${categoryText} - ${roomText}`,
+      description: `${description}\n\nContacto: ${contactName} | ${contactEmail}${contactPhone ? ' | ' + contactPhone : ''}`,
+      custom_attributes: {
+        [FIELD_ROOM]: roomId,
+        [FIELD_CATEGORY]: categoryId,
+        unit_id: unitId
+      }
+    }
   };
 
-  const response = await fetch(process.env.WORKATO_WEBHOOK_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
+  try {
+    const res = await fetch(`${PLANRADAR_BASE}/projects/${PLANRADAR_PROJECT}/tickets`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${process.env.PLANRADAR_API_TOKEN}`
+      },
+      body: JSON.stringify(ticketPayload)
+    });
 
-  if (!response.ok) {
-    return { statusCode: 502, body: 'Upstream error' };
+    if (!res.ok) {
+      const errText = await res.text();
+      console.error('PlanRadar error:', res.status, errText);
+      return { statusCode: 502, body: 'PlanRadar API error: ' + res.status };
+    }
+
+    const json = await res.json();
+    const ref = json.ticket?.reference || json.ticket?.id || 'DEF-' + Date.now().toString(36).toUpperCase();
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ success: true, ref })
+    };
+  } catch (err) {
+    console.error('Error:', err);
+    return { statusCode: 500, body: 'Internal error' };
   }
-
-  const ref = 'DEF-' + Date.now().toString(36).toUpperCase();
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ success: true, ref }),
-  };
 };
