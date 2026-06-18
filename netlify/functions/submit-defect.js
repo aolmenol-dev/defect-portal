@@ -125,10 +125,13 @@ const CATEGORY_IDS = {
   "Document": "wdjgdqde"
 };
 
+const PLANRADAR_CUSTOMER = '338607';
 const PLANRADAR_PROJECT = '338609';
 const PLANRADAR_BASE = 'https://planradar.com/api/v1';
 const FIELD_ROOM = 'tffa50f6035291031e';
 const FIELD_CATEGORY = 'tf1fb9ead060327190';
+const FIELD_UNIT_ID = 'tf7324790b280bec08';
+const FIELD_DESCRIPTION = 'tfa19c566730899fd7';
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -163,18 +166,20 @@ exports.handler = async (event) => {
   // Build PlanRadar ticket payload
   const ticketPayload = {
     ticket: {
-      title: `[${unitId}] ${categoryText} - ${roomText}`,
-      description: `${description}\n\nContacto: ${contactName} | ${contactEmail}${contactPhone ? ' | ' + contactPhone : ''}`,
-      custom_attributes: {
+      subject: `[${unitId}] ${categoryText} - ${roomText}`,
+      ticket_type_id: 'mdeakza',
+      component_id: 'aqypekl',
+      typed_values: {
+        [FIELD_UNIT_ID]: unitId,
         [FIELD_ROOM]: roomId,
         [FIELD_CATEGORY]: categoryId,
-        unit_id: unitId
+        [FIELD_DESCRIPTION]: `${description}\n\nContacto: ${contactName} | ${contactEmail}${contactPhone ? ' | ' + contactPhone : ''}`
       }
     }
   };
 
   try {
-    const res = await fetch(`${PLANRADAR_BASE}/projects/${PLANRADAR_PROJECT}/tickets`, {
+    const res = await fetch(`${PLANRADAR_BASE}/${PLANRADAR_CUSTOMER}/projects/${PLANRADAR_PROJECT}/tickets`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
