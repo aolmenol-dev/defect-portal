@@ -1,4 +1,4 @@
-const ROOM_IDS = {
+}const ROOM_IDS = {
   "Aljibe": "wjokalg",
   "Almacen jardineria": "jdlmebx",
   "Almacén": "abknoym",
@@ -183,11 +183,10 @@ exports.handler = async (event) => {
   };
 
   try {
-    const res = await fetch(`${PLANRADAR_BASE}/${PLANRADAR_CUSTOMER}/projects/${PLANRADAR_PROJECT}/tickets`, {
+    const res = await fetch(`${PLANRADAR_BASE}/${PLANRADAR_CUSTOMER}/projects/${PLANRADAR_PROJECT}/tickets?auth_token=${process.env.PLANRADAR_API_TOKEN}`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${process.env.PLANRADAR_API_TOKEN}`
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(ticketPayload)
     });
