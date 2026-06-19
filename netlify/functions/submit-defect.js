@@ -132,6 +132,8 @@ const FIELD_ROOM = 'tffa50f6035291031e';
 const FIELD_CATEGORY = 'tf1fb9ead060327190';
 const FIELD_UNIT_ID = 'tf7324790b280bec08';
 const FIELD_DESCRIPTION = 'tfa19c566730899fd7';
+const FIELD_CONTACT_NAME = 'tf575950908d920cba';
+const FIELD_CONTACT_EMAIL = 'tf59ea55900e072e16';
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -173,7 +175,9 @@ exports.handler = async (event) => {
         [FIELD_UNIT_ID]: unitId,
         [FIELD_ROOM]: roomId,
         [FIELD_CATEGORY]: categoryId,
-        [FIELD_DESCRIPTION]: `${description}\n\nContacto: ${contactName} | ${contactEmail}${contactPhone ? ' | ' + contactPhone : ''}`
+        [FIELD_DESCRIPTION]: description,
+        [FIELD_CONTACT_NAME]: contactName,
+        [FIELD_CONTACT_EMAIL]: contactEmail
       }
     }
   };
