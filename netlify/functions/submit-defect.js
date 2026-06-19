@@ -160,12 +160,10 @@ exports.handler = async (event) => {
   const description = sanitize(data.description);
   const contactName = sanitize(data.contact_name);
   const contactEmail = sanitize(data.contact_email);
-  const contactPhone = sanitize(data.contact_phone);
 
   const roomId = ROOM_IDS[roomText] || null;
   const categoryId = CATEGORY_IDS[categoryText] || null;
 
-  // Build PlanRadar ticket payload
   const ticketPayload = {
     ticket: {
       subject: `[${unitId}] ${categoryText} - ${roomText}`,
@@ -185,9 +183,7 @@ exports.handler = async (event) => {
   try {
     const res = await fetch(`${PLANRADAR_BASE}/${PLANRADAR_CUSTOMER}/projects/${PLANRADAR_PROJECT}/tickets?auth_token=${process.env.PLANRADAR_API_TOKEN}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(ticketPayload)
     });
 
@@ -198,7 +194,7 @@ exports.handler = async (event) => {
     }
 
     const json = await res.json();
-    const ref = json.ticket?.reference || json.ticket?.id || 'DEF-' + Date.now().toString(36).toUpperCase();
+    const ref = json.ticket?.sequential_id || json.data?.attributes?.['sequential-id'] || 'DEF-' + Date.now().toString(36).toUpperCase();
 
     return {
       statusCode: 200,
