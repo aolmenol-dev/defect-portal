@@ -1,4 +1,4 @@
-}const ROOM_IDS = {
+const ROOM_IDS = {
   "Aljibe": "wjokalg",
   "Almacen jardineria": "jdlmebx",
   "Almacén": "abknoym",
