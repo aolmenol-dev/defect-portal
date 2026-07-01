@@ -57,7 +57,7 @@ const FIELD_DESCRIPTION = 'tfa19c566730899fd7';
 const FIELD_CONTACT_NAME = 'tf575950908d920cba';
 const FIELD_CONTACT_EMAIL = 'tf59ea55900e072e16';
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).send('Method Not Allowed');
   }
