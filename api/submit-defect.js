@@ -98,6 +98,9 @@ module.exports = async function handler(req, res) {
     }
   };
 
+  console.log('Token starts with:', process.env.PLANRADAR_API_TOKEN?.substring(0, 10));
+  console.log('Token length:', process.env.PLANRADAR_API_TOKEN?.length);
+
   try {
     const response = await fetch(
       `${PLANRADAR_BASE}/${PLANRADAR_CUSTOMER}/projects/${PLANRADAR_PROJECT}/tickets?auth_token=${process.env.PLANRADAR_API_TOKEN}`,
