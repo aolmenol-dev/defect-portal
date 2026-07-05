@@ -106,7 +106,11 @@ module.exports = async function handler(req, res) {
       `${PLANRADAR_BASE}/${PLANRADAR_CUSTOMER}/projects/${PLANRADAR_PROJECT}/tickets?auth_token=${process.env.PLANRADAR_API_TOKEN}`,
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.PLANRADAR_API_TOKEN}`,
+          'X-Auth-Token': process.env.PLANRADAR_API_TOKEN
+        },
         body: JSON.stringify(ticketPayload)
       }
     );
