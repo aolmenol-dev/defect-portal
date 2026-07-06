@@ -47,15 +47,7 @@ const CATEGORY_IDS = {
   "Maintenance": "kqdxqnql", "Observation": "zxobxyxy", "Document": "wdjgdqde"
 };
 
-const PLANRADAR_CUSTOMER = '338607';
-const PLANRADAR_PROJECT = '338609';
-const PLANRADAR_BASE = 'https://planradar.com/api/v1';
-const FIELD_ROOM = 'tffa50f6035291031e';
-const FIELD_CATEGORY = 'tf1fb9ead060327190';
-const FIELD_UNIT_ID = 'tf7324790b280bec08';
-const FIELD_DESCRIPTION = 'tfa19c566730899fd7';
-const FIELD_CONTACT_NAME = 'tf575950908d920cba';
-const FIELD_CONTACT_EMAIL = 'tf59ea55900e072e16';
+const WORKATO_WEBHOOK = 'https://webhooks.eu.workato.com/webhooks/rest/33ef3bdf-71c7-4365-a26d-6ec1c0b5d52f/webapp_defects';
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -130,3 +122,4 @@ module.exports = async function handler(req, res) {
     return res.status(500).send('Internal error');
   }
 }
+
