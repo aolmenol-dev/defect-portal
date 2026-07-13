@@ -286,7 +286,7 @@ async function submitDefect() {
 
   try {
     const res = await fetch(
-      `https://planradar.com/api/v1/${CUSTOMER_ID}/projects/${PROJECT_ID}/tickets?auth_token=${API_TOKEN}`,
+      `https://app.planradar.com/api/v1/${CUSTOMER_ID}/projects/${PROJECT_ID}/tickets?auth_token=${API_TOKEN}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
