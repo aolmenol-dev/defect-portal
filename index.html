@@ -19,18 +19,6 @@
   input:focus, select:focus, textarea:focus { border-color: #888; box-shadow: 0 0 0 3px rgba(0,0,0,0.05); }
   textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
   .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .priority-group { display: flex; gap: 8px; }
-  .prio-btn { flex: 1; padding: 8px; border: 0.5px solid #d0d0c8; border-radius: 8px; font-size: 13px; cursor: pointer; background: #fff; color: #555; text-align: center; transition: all 0.15s; }
-  .prio-btn.active-low { background: #eaf3de; border-color: #97c459; color: #3B6D11; font-weight: 500; }
-  .prio-btn.active-medium { background: #faeeda; border-color: #ef9f27; color: #633806; font-weight: 500; }
-  .prio-btn.active-high { background: #fcebeb; border-color: #f09595; color: #a32d2d; font-weight: 500; }
-  .upload-area { border: 1.5px dashed #d0d0c8; border-radius: 8px; padding: 1.5rem; text-align: center; cursor: pointer; background: #fafaf8; position: relative; }
-  .upload-area input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-  .upload-icon { font-size: 22px; margin-bottom: 6px; }
-  .upload-area p { font-size: 13px; color: #888; }
-  .upload-area span { font-size: 12px; color: #aaa; }
-  .preview-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-  .preview-img { width: 64px; height: 64px; object-fit: cover; border-radius: 6px; border: 0.5px solid #e0e0d8; }
   .btn-submit { width: 100%; padding: 12px; background: #1a1a1a; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; margin-top: 0.5rem; transition: opacity 0.15s; }
   .btn-submit:hover { opacity: 0.85; }
   .btn-submit:disabled { opacity: 0.4; cursor: default; }
@@ -39,9 +27,6 @@
   .error { font-size: 12px; color: #a32d2d; margin-top: 4px; display: none; }
   .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 8px; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  #login-view .card { padding: 2.5rem 2rem; }
-  #login-view h2 { text-align: center; margin-bottom: 0.25rem; }
-  .subtitle { text-align: center; font-size: 13px; color: #888; margin-bottom: 2rem; }
   #success-view { text-align: center; }
   #success-view .card { padding: 3rem 2rem; }
   .success-icon { width: 56px; height: 56px; background: #eaf3de; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; }
@@ -49,40 +34,15 @@
   #success-view h2 { font-size: 20px; margin-bottom: 0.5rem; }
   #success-view p { color: #666; font-size: 14px; line-height: 1.6; }
   .btn-new { margin-top: 1.5rem; padding: 10px 24px; background: #fff; border: 0.5px solid #d0d0c8; border-radius: 8px; font-size: 14px; cursor: pointer; color: #333; }
-  /* honeypot */
-  .hp { display: none; }
 </style>
 </head>
 <body>
 
-<!-- LOGIN VIEW -->
-<div id="login-view" class="container">
+<!-- FORM VIEW -->
+<div id="form-view" class="container">
   <div class="logo">
     <h1>Defect reporting portal</h1>
     <p>Report property defects quickly and easily</p>
-  </div>
-  <div class="card">
-    <h2>Sign in</h2>
-    <p class="subtitle">Enter your access code to continue</p>
-    <div class="field">
-      <label>Email address</label>
-      <input type="email" id="login-email" placeholder="your@email.com">
-      <div class="error" id="err-email">Please enter a valid email address.</div>
-    </div>
-    <div class="field">
-      <label>Access code</label>
-      <input type="password" id="login-password" placeholder="Enter your access code">
-      <div class="error" id="err-password">Incorrect access code. Please try again.</div>
-    </div>
-    <button class="btn-submit" onclick="doLogin()" style="margin-top:1rem">Sign in</button>
-  </div>
-</div>
-
-<!-- FORM VIEW -->
-<div id="form-view" class="container" style="display:none">
-  <div class="logo">
-    <h1>Defect reporting portal</h1>
-    <p id="user-greeting">Welcome</p>
   </div>
   <div class="card">
     <div class="section-title">Property details</div>
@@ -94,108 +54,44 @@
       </div>
       <div class="field">
         <label>Location / Room *</label>
-       <select id="f-room">
-  <option value="">Selecciona habitación…</option>
-  <option>Aljibe</option>
-  <option>Almacen jardineria</option>
-  <option>Almacén</option>
-  <option>Ascensor</option>
-  <option>Aseo</option>
-  <option>Baño 1</option>
-  <option>Baño 2</option>
-  <option>Baño 3</option>
-  <option>Baño 4</option>
-  <option>Baño 5</option>
-  <option>Baño femenino</option>
-  <option>Baño masculino</option>
-  <option>Baño minusvalido</option>
-  <option>Baño turco</option>
-  <option>Bodega</option>
-  <option>Buhardilla</option>
-  <option>Caminos</option>
-  <option>Cocina</option>
-  <option>Comedor</option>
-  <option>Contadores agua</option>
-  <option>Contadores luz</option>
-  <option>Control</option>
-  <option>Corralas</option>
-  <option>Cuarto basura</option>
-  <option>Cuarto Caldera</option>
-  <option>Cuarto extraccion</option>
-  <option>Cuarto instalaciones</option>
-  <option>Cuarto limpieza</option>
-  <option>Cuarto personal</option>
-  <option>Cuarto tecnico</option>
-  <option>Cuarto teleco</option>
-  <option>Cubierta</option>
-  <option>Despacho</option>
-  <option>Despensa</option>
-  <option>Dirty Kicthen</option>
-  <option>Distribuidor</option>
-  <option>Dormitorio 1</option>
-  <option>Dormitorio 2</option>
-  <option>Dormitorio 3</option>
-  <option>Dormitorio 4</option>
-  <option>Dormitorio 5</option>
-  <option>Dormitorio 6</option>
-  <option>Dormitorio 7</option>
-  <option>Dormitorio 8</option>
-  <option>Dormitorio 9</option>
-  <option>Entrada</option>
-  <option>Escalera</option>
-  <option>Fachada</option>
-  <option>Garaje</option>
-  <option>General</option>
-  <option>Gimnasio</option>
-  <option>Grupo presion</option>
-  <option>Hamann</option>
-  <option>Jardín</option>
-  <option>Jardines</option>
-  <option>Lavadero</option>
-  <option>Local</option>
-  <option>Oficina</option>
-  <option>Otros</option>
-  <option>Otros….</option>
-  <option>Pasillo</option>
-  <option>Pasillo Z.C</option>
-  <option>Patio</option>
-  <option>Piscina</option>
-  <option>Piscina pequeña</option>
-  <option>Porche</option>
-  <option>Portal</option>
-  <option>Resto Urbanización</option>
-  <option>RITS</option>
-  <option>Sala extraccion</option>
-  <option>Salón</option>
-  <option>Sauna</option>
-  <option>Show room</option>
-  <option>Sin definir</option>
-  <option>Solarium</option>
-  <option>Sotano Z.C</option>
-  <option>Tendedero</option>
-  <option>Terraza</option>
-  <option>Terraza 1</option>
-  <option>Terraza 2</option>
-  <option>Terraza 3</option>
-  <option>Terraza 4</option>
-  <option>Terraza Salón</option>
-  <option>Terraza Técnica</option>
-  <option>Trastero</option>
-  <option>Vestibulo Baja</option>
-  <option>Vestibulo Garaje</option>
-  <option>Vestibulo Primera</option>
-  <option>Vestibulo Segunda</option>
-  <option>Vestidor</option>
-  <option>Vestuario</option>
-  <option>Vestíbulo</option>
-  <option>Vestíbulo de entrada</option>
-  <option>Vinoteca</option>
-  <option>Vivienda</option>
-  <option>Vivienda General</option>
-  <option>Zona Comunes</option>
-  <option>Zona infantil</option>
-  <option>Zona verde</option>
-</select>
+        <select id="f-room">
+          <option value="">Select room…</option>
+          <option>Aljibe</option><option>Almacen jardineria</option><option>Almacén</option>
+          <option>Ascensor</option><option>Aseo</option><option>Baño 1</option>
+          <option>Baño 2</option><option>Baño 3</option><option>Baño 4</option>
+          <option>Baño 5</option><option>Baño femenino</option><option>Baño masculino</option>
+          <option>Baño minusvalido</option><option>Baño turco</option><option>Bodega</option>
+          <option>Buhardilla</option><option>Caminos</option><option>Cocina</option>
+          <option>Comedor</option><option>Contadores agua</option><option>Contadores luz</option>
+          <option>Control</option><option>Corralas</option><option>Cuarto basura</option>
+          <option>Cuarto Caldera</option><option>Cuarto extraccion</option>
+          <option>Cuarto instalaciones</option><option>Cuarto limpieza</option>
+          <option>Cuarto personal</option><option>Cuarto tecnico</option>
+          <option>Cuarto teleco</option><option>Cubierta</option><option>Despacho</option>
+          <option>Despensa</option><option>Dirty Kicthen</option><option>Distribuidor</option>
+          <option>Dormitorio 1</option><option>Dormitorio 2</option><option>Dormitorio 3</option>
+          <option>Dormitorio 4</option><option>Dormitorio 5</option><option>Dormitorio 6</option>
+          <option>Dormitorio 7</option><option>Dormitorio 8</option><option>Dormitorio 9</option>
+          <option>Entrada</option><option>Escalera</option><option>Fachada</option>
+          <option>Garaje</option><option>General</option><option>Gimnasio</option>
+          <option>Grupo presion</option><option>Hamann</option><option>Jardín</option>
+          <option>Jardines</option><option>Lavadero</option><option>Local</option>
+          <option>Oficina</option><option>Otros</option><option>Otros….</option>
+          <option>Pasillo</option><option>Pasillo Z.C</option><option>Patio</option>
+          <option>Piscina</option><option>Piscina pequeña</option><option>Porche</option>
+          <option>Portal</option><option>Resto Urbanización</option><option>RITS</option>
+          <option>Sala extraccion</option><option>Salón</option><option>Sauna</option>
+          <option>Show room</option><option>Sin definir</option><option>Solarium</option>
+          <option>Sotano Z.C</option><option>Tendedero</option><option>Terraza</option>
+          <option>Terraza 1</option><option>Terraza 2</option><option>Terraza 3</option>
+          <option>Terraza 4</option><option>Terraza Salón</option><option>Terraza Técnica</option>
+          <option>Trastero</option><option>Vestibulo Baja</option><option>Vestibulo Garaje</option>
+          <option>Vestibulo Primera</option><option>Vestibulo Segunda</option>
+          <option>Vestidor</option><option>Vestuario</option><option>Vestíbulo</option>
+          <option>Vestíbulo de entrada</option><option>Vinoteca</option><option>Vivienda</option>
+          <option>Vivienda General</option><option>Zona Comunes</option>
+          <option>Zona infantil</option><option>Zona verde</option>
+        </select>
         <div class="error" id="err-room">Please select a room.</div>
       </div>
     </div>
@@ -204,39 +100,28 @@
     <div class="row2">
       <div class="field">
         <label>Category *</label>
-       <select id="f-category">
-  <option value="">Selecciona categoría…</option>
-  <option>Additional works</option>
-  <option>Assessment</option>
-  <option>Changes in planning</option>
-  <option>Clean up</option>
-  <option>Condition Schedule</option>
-  <option>Defect</option>
-  <option>Document</option>
-  <option>Due-diligence</option>
-  <option>General defect</option>
-  <option>Hindrance</option>
-  <option>Hint</option>
-  <option>Inventory</option>
-  <option>Lack of preliminary work</option>
-  <option>Maintenance</option>
-  <option>Misgiving</option>
-  <option>Note</option>
-  <option>Observation</option>
-  <option>Remaining work</option>
-  <option>RFI</option>
-  <option>Snag</option>
-  <option>Task</option>
-  <option>Warranty defect</option>
-</select>
+        <select id="f-category">
+          <option value="">Select category…</option>
+          <option>Additional works</option><option>Assessment</option>
+          <option>Changes in planning</option><option>Clean up</option>
+          <option>Condition Schedule</option><option>Defect</option>
+          <option>Document</option><option>Due-diligence</option>
+          <option>General defect</option><option>Hindrance</option>
+          <option>Hint</option><option>Inventory</option>
+          <option>Lack of preliminary work</option><option>Maintenance</option>
+          <option>Misgiving</option><option>Note</option>
+          <option>Observation</option><option>Remaining work</option>
+          <option>RFI</option><option>Snag</option>
+          <option>Task</option><option>Warranty defect</option>
+        </select>
         <div class="error" id="err-category">Please select a category.</div>
       </div>
       <div class="field">
         <label>Priority *</label>
-        <div class="priority-group">
-          <button class="prio-btn" id="prio-low" onclick="setPrio('low')">Low</button>
-          <button class="prio-btn" id="prio-medium" onclick="setPrio('medium')">Medium</button>
-          <button class="prio-btn" id="prio-high" onclick="setPrio('high')">High</button>
+        <div style="display:flex;gap:8px">
+          <button class="prio-btn" id="prio-low" onclick="setPrio('low')" style="flex:1;padding:8px;border:0.5px solid #d0d0c8;border-radius:8px;font-size:13px;cursor:pointer;background:#fff">Low</button>
+          <button class="prio-btn" id="prio-medium" onclick="setPrio('medium')" style="flex:1;padding:8px;border:0.5px solid #d0d0c8;border-radius:8px;font-size:13px;cursor:pointer;background:#fff">Medium</button>
+          <button class="prio-btn" id="prio-high" onclick="setPrio('high')" style="flex:1;padding:8px;border:0.5px solid #d0d0c8;border-radius:8px;font-size:13px;cursor:pointer;background:#fff">High</button>
         </div>
         <div class="error" id="err-priority">Please select a priority.</div>
       </div>
@@ -245,16 +130,6 @@
       <label>Description *</label>
       <textarea id="f-desc" placeholder="Describe the defect in detail…" maxlength="1000"></textarea>
       <div class="error" id="err-desc">Please add a description.</div>
-    </div>
-    <div class="field">
-      <label>Photos</label>
-      <div class="upload-area">
-        <input type="file" id="f-photos" accept="image/*" multiple onchange="handleFiles(this.files)">
-        <div class="upload-icon">🖼</div>
-        <p>Click or drag photos here</p>
-        <span>JPG, PNG, HEIC — up to 5 files</span>
-      </div>
-      <div class="preview-grid" id="preview-grid"></div>
     </div>
     <hr class="divider">
     <div class="section-title">Contact details</div>
@@ -270,12 +145,6 @@
         <div class="error" id="err-contact-email">Valid email required.</div>
       </div>
     </div>
-    <div class="field" style="max-width:260px">
-      <label>Phone</label>
-      <input type="tel" id="f-phone" placeholder="+43 …" maxlength="30">
-    </div>
-    <!-- Honeypot — hidden from real users, bots will fill it -->
-    <div class="hp"><input type="text" id="hp-field" tabindex="-1" autocomplete="off"></div>
     <button class="btn-submit" id="submit-btn" onclick="submitDefect()">Submit defect report</button>
   </div>
 </div>
@@ -295,146 +164,165 @@
 </div>
 
 <script>
-  // ── Rate limiting: max 3 submissions per session ──
-  let submitCount = 0;
-  const MAX_SUBMITS = 3;
+// ─── CONFIG — replace with your values ───────────────────────────────────────
+const API_TOKEN   = '35b44895d7de8162becc09a1e72cab4d9aa702c9686e761187a0452ff50150477ae54723c8d793a709cce9da51a4ca208090782b4c677248726735e7c9ab6539256f20c8e25cc64129719e6e5e11e396';
+const CUSTOMER_ID = '338607';
+const PROJECT_ID  = '338609';
+// Field IDs from your integration form
+const FIELD_UNIT_ID       = 'tf7324790b280bec08';
+const FIELD_ROOM          = 'tffa50f6035291031e';
+const FIELD_CATEGORY      = 'tf1fb9ead060327190';
+const FIELD_DESCRIPTION   = 'tfa19c566730899fd7';
+const FIELD_CONTACT_NAME  = 'tf575950908d920cba';
+const FIELD_CONTACT_EMAIL = 'tf59ea55900e072e16';
+const TICKET_TYPE_ID      = 'mdeakza';
+const COMPONENT_ID        = 'aqypekl';
+// ─────────────────────────────────────────────────────────────────────────────
 
-  // ── Access codes (add as many as you need) ──
-  const ACCESS_CODES = ['Defect2024!', 'Portal2024!'];
+const ROOM_IDS = {
+  "Aljibe":"wjokalg","Almacen jardineria":"jdlmebx","Almacén":"abknoym",
+  "Ascensor":"qlbyopo","Aseo":"xxjpyxj","Baño 1":"ylnbolm","Baño 2":"lxjgbxw",
+  "Baño 3":"ojkbajx","Baño 4":"mjwkzjj","Baño 5":"exwnzxq","Baño femenino":"gqgyaqj",
+  "Baño masculino":"kdoekda","Baño minusvalido":"pxkdyxe","Baño turco":"bjbwejm",
+  "Bodega":"dxjnbxn","Buhardilla":"zowdeop","Caminos":"najpwan","Cocina":"wjokajg",
+  "Comedor":"jdlmedx","Contadores agua":"abknobm","Contadores luz":"qlbyolo",
+  "Control":"xxjpywj","Corralas":"ylnboym","Cuarto basura":"lxjgbow",
+  "Cuarto Caldera":"ojkbawx","Cuarto extraccion":"mjwkzmj","Cuarto instalaciones":"exwnzqq",
+  "Cuarto limpieza":"gqgyakj","Cuarto personal":"kdoekla","Cuarto tecnico":"pxkdywe",
+  "Cuarto teleco":"bjbweom","Cubierta":"dxjnben","Despacho":"zowdelp","Despensa":"najpwen",
+  "Dirty Kicthen":"wjokapg","Distribuidor":"jdlmeyx","Dormitorio 1":"abknolm",
+  "Dormitorio 2":"qlbyojo","Dormitorio 3":"xxjpylj","Dormitorio 4":"ylnboxm",
+  "Dormitorio 5":"lxjgblw","Dormitorio 6":"ojkbaex","Dormitorio 7":"mjwkzoj",
+  "Dormitorio 8":"exwnzaq","Dormitorio 9":"gqgyajj","Entrada":"kdoekya",
+  "Escalera":"pxkdyge","Fachada":"bjbwepm","Garaje":"dxjnbzn","General":"zowdemp",
+  "Gimnasio":"najpwmn","Grupo presion":"wjokayg","Hamann":"jdlmejx","Jardines":"abknopm",
+  "Jardín":"ylnboxo","Lavadero":"lxjgbqj","Local":"ojkbaqg","Oficina":"mjwkzqe",
+  "Otros":"exwnzde","Otros….":"gqgyaxq","Pasillo":"kdoekal","Pasillo Z.C":"pxkdyqg",
+  "Patio":"bjbwedd","Piscina":"dxjnbdy","Piscina pequeña":"zowdeqy","Porche":"najpwqp",
+  "Portal":"wjokawe","Resto Urbanización":"jdlmeap","RITS":"abknoja",
+  "Sala extraccion":"qlbyoqn","Salón":"xxjpybn","Sauna":"ylnbodo","Show room":"lxjgbyj",
+  "Sin definir":"ojkbamg","Solarium":"mjwkzle","Sotano Z.C":"exwnzle","Tendedero":"gqgyamq",
+  "Terraza":"kdoekpl","Terraza 1":"pxkdyeg","Terraza 2":"bjbwekd","Terraza 3":"dxjnbyy",
+  "Terraza 4":"zowdeay","Terraza Salón":"najpwop","Terraza Técnica":"wjokaxe",
+  "Trastero":"jdlmekp","Vestibulo Baja":"abknoga","Vestibulo Garaje":"qlbyogn",
+  "Vestibulo Primera":"xxjpyan","Vestibulo Segunda":"ylnboao","Vestidor":"lxjgbnj",
+  "Vestuario":"ojkbang","Vestíbulo":"mjwkzne","Vestíbulo de entrada":"exwnzke",
+  "Vinoteca":"gqgyabq","Vivienda":"kdoeknl","Vivienda General":"pxkdyjg",
+  "Zona Comunes":"bjbwemd","Zona infantil":"dxjnbgy","Zona verde":"zowdeyy"
+};
 
-  let selectedPriority = '';
-  let uploadedFiles = [];
-  let currentUser = '';
+const CATEGORY_IDS = {
+  "General defect":"poxnoeze","Additional works":"ngadgobn","Assessment":"qklwkgno",
+  "Changes in planning":"mdjbdlyj","Defect":"kqdxqpja","Due-diligence":"doxaoykn",
+  "Hindrance":"jqdgqkwx","Hint":"qklwkgeo","Inventory":"lmxpmybw",
+  "Lack of preliminary work":"gwqowmaj","Misgiving":"doxaoybn","Note":"ngadgown",
+  "Task":"qklwkgoo","Warranty defect":"ogjzgnkx","Remaining work":"gwqowbgj",
+  "RFI":"bqjaqmbm","Snag":"ngadgxjn","Clean up":"jqdgqnlx",
+  "Condition Schedule":"ogjzgngg","Maintenance":"kqdxqnql","Observation":"zxobxyxy",
+  "Document":"wdjgdqde"
+};
 
-  function doLogin() {
-    const email = document.getElementById('login-email').value.trim();
-    const pw = document.getElementById('login-password').value;
-    let ok = true;
-    document.getElementById('err-email').style.display = 'none';
-    document.getElementById('err-password').style.display = 'none';
-    if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
-      document.getElementById('err-email').style.display = 'block'; ok = false;
-    }
-    if (!ACCESS_CODES.includes(pw)) {
-      document.getElementById('err-password').style.display = 'block'; ok = false;
-    }
-    if (!ok) return;
-    currentUser = email;
-    document.getElementById('user-greeting').textContent = 'Logged in as ' + email;
-    document.getElementById('f-contact-email').value = email;
-    document.getElementById('login-view').style.display = 'none';
-    document.getElementById('form-view').style.display = 'block';
-  }
+let selectedPriority = '';
 
-  function setPrio(p) {
-    selectedPriority = p;
-    ['low','medium','high'].forEach(x => {
-      document.getElementById('prio-' + x).className = 'prio-btn' + (x === p ? ' active-' + x : '');
-    });
-  }
-
-  function handleFiles(files) {
-    uploadedFiles = Array.from(files).slice(0, 5);
-    const grid = document.getElementById('preview-grid');
-    grid.innerHTML = '';
-    uploadedFiles.forEach(f => {
-      const img = document.createElement('img');
-      img.src = URL.createObjectURL(f);
-      img.className = 'preview-img';
-      grid.appendChild(img);
-    });
-  }
-
-  function validate() {
-    const fields = [
-      ['f-unit','err-unit', v => v.trim() !== ''],
-      ['f-room','err-room', v => v !== ''],
-      ['f-category','err-category', v => v !== ''],
-      ['f-desc','err-desc', v => v.trim().length > 5],
-      ['f-name','err-name', v => v.trim() !== ''],
-      ['f-contact-email','err-contact-email', v => /^[^@]+@[^@]+\.[^@]+$/.test(v)],
-    ];
-    let ok = true;
-    fields.forEach(([id, errId, fn]) => {
-      const valid = fn(document.getElementById(id).value);
-      document.getElementById(errId).style.display = valid ? 'none' : 'block';
-      if (!valid) ok = false;
-    });
-    if (!selectedPriority) {
-      document.getElementById('err-priority').style.display = 'block'; ok = false;
-    } else {
-      document.getElementById('err-priority').style.display = 'none';
-    }
-    return ok;
-  }
-
-  async function submitDefect() {
-    // Honeypot check — bots fill hidden fields, humans don't
-    if (document.getElementById('hp-field').value !== '') return;
-
-    // Rate limit check
-    if (submitCount >= MAX_SUBMITS) {
-      alert('Maximum submissions reached for this session.');
-      return;
-    }
-
-    if (!validate()) return;
-
-    const btn = document.getElementById('submit-btn');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>Submitting…';
-
-    const payload = {
-      unit_id:       document.getElementById('f-unit').value.trim(),
-      room:          document.getElementById('f-room').value,
-      category:      document.getElementById('f-category').value,
-      priority:      selectedPriority,
-      description:   document.getElementById('f-desc').value.trim(),
-      contact_name:  document.getElementById('f-name').value.trim(),
-      contact_email: document.getElementById('f-contact-email').value.trim(),
-      contact_phone: document.getElementById('f-phone').value.trim(),
-    };
-
-    try {
-      // Calls our Netlify backend function — webhook URL is never exposed here
-      const res = await fetch('/api/submit-defect', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-form-secret': 'xK9#mP2$qL7!'
-        },
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-      submitCount++;
-      document.getElementById('ticket-ref').textContent = data.ref || 'DEF-OK';
-      document.getElementById('form-view').style.display = 'none';
-      document.getElementById('success-view').style.display = 'block';
-    } catch {
-      alert('Something went wrong. Please try again.');
-      btn.disabled = false;
-      btn.innerHTML = 'Submit defect report';
-    }
-  }
-
-  function resetForm() {
-    selectedPriority = '';
-    uploadedFiles = [];
-    document.getElementById('preview-grid').innerHTML = '';
-    ['f-unit','f-desc','f-name','f-phone'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('f-room').value = '';
-    document.getElementById('f-category').value = '';
-    document.getElementById('f-contact-email').value = currentUser;
-    ['low','medium','high'].forEach(x => document.getElementById('prio-' + x).className = 'prio-btn');
-    document.getElementById('submit-btn').disabled = false;
-    document.getElementById('submit-btn').innerHTML = 'Submit defect report';
-    document.getElementById('success-view').style.display = 'none';
-    document.getElementById('form-view').style.display = 'block';
-  }
-
-  document.getElementById('login-password').addEventListener('keydown', e => {
-    if (e.key === 'Enter') doLogin();
+function setPrio(p) {
+  selectedPriority = p;
+  const colors = { low:'#eaf3de', medium:'#faeeda', high:'#fcebeb' };
+  const borders = { low:'#97c459', medium:'#ef9f27', high:'#f09595' };
+  ['low','medium','high'].forEach(x => {
+    const b = document.getElementById('prio-' + x);
+    b.style.background = x === p ? colors[x] : '#fff';
+    b.style.borderColor = x === p ? borders[x] : '#d0d0c8';
+    b.style.fontWeight = x === p ? '600' : 'normal';
   });
+}
+
+function validate() {
+  const fields = [
+    ['f-unit','err-unit', v => v.trim() !== ''],
+    ['f-room','err-room', v => v !== ''],
+    ['f-category','err-category', v => v !== ''],
+    ['f-desc','err-desc', v => v.trim().length > 5],
+    ['f-name','err-name', v => v.trim() !== ''],
+    ['f-contact-email','err-contact-email', v => /^[^@]+@[^@]+\.[^@]+$/.test(v)],
+  ];
+  let ok = true;
+  fields.forEach(([id, errId, fn]) => {
+    const valid = fn(document.getElementById(id).value);
+    document.getElementById(errId).style.display = valid ? 'none' : 'block';
+    if (!valid) ok = false;
+  });
+  if (!selectedPriority) {
+    document.getElementById('err-priority').style.display = 'block'; ok = false;
+  } else {
+    document.getElementById('err-priority').style.display = 'none';
+  }
+  return ok;
+}
+
+async function submitDefect() {
+  if (!validate()) return;
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Submitting…';
+
+  const room = document.getElementById('f-room').value;
+  const category = document.getElementById('f-category').value;
+
+  const payload = {
+    ticket: {
+      subject: `[${document.getElementById('f-unit').value.trim()}] ${category} - ${room}`,
+      ticket_type_id: TICKET_TYPE_ID,
+      component_id: COMPONENT_ID,
+      typed_values: {
+        [FIELD_UNIT_ID]: document.getElementById('f-unit').value.trim(),
+        [FIELD_ROOM]: ROOM_IDS[room] || null,
+        [FIELD_CATEGORY]: CATEGORY_IDS[category] || null,
+        [FIELD_DESCRIPTION]: document.getElementById('f-desc').value.trim(),
+        [FIELD_CONTACT_NAME]: document.getElementById('f-name').value.trim(),
+        [FIELD_CONTACT_EMAIL]: document.getElementById('f-contact-email').value.trim()
+      }
+    }
+  };
+
+  try {
+    const res = await fetch(
+      `https://planradar.com/api/v1/${CUSTOMER_ID}/projects/${PROJECT_ID}/tickets?auth_token=${API_TOKEN}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }
+    );
+    const json = await res.json();
+    if (!res.ok) throw new Error(JSON.stringify(json));
+    const ref = json.data?.attributes?.['sequential-id'] || '—';
+    document.getElementById('ticket-ref').textContent = '#' + ref;
+    document.getElementById('form-view').style.display = 'none';
+    document.getElementById('success-view').style.display = 'block';
+  } catch(e) {
+    console.error(e);
+    alert('Error submitting. Check console for details.');
+    btn.disabled = false;
+    btn.innerHTML = 'Submit defect report';
+  }
+}
+
+function resetForm() {
+  selectedPriority = '';
+  ['f-unit','f-desc','f-name','f-contact-email'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('f-room').value = '';
+  document.getElementById('f-category').value = '';
+  ['low','medium','high'].forEach(x => {
+    const b = document.getElementById('prio-' + x);
+    b.style.background = '#fff';
+    b.style.borderColor = '#d0d0c8';
+    b.style.fontWeight = 'normal';
+  });
+  document.getElementById('submit-btn').disabled = false;
+  document.getElementById('submit-btn').innerHTML = 'Submit defect report';
+  document.getElementById('success-view').style.display = 'none';
+  document.getElementById('form-view').style.display = 'block';
+}
 </script>
 </body>
 </html>
